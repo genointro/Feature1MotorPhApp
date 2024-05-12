@@ -10,7 +10,7 @@ import java.awt.event.*;
 
 public class FrameAndElements implements ActionListener{
 
-	JFrame frame;
+	JFrame frame;              //Attributes
 	
 	JLabel ms1;
 	JLabel ms2;
@@ -32,12 +32,12 @@ public class FrameAndElements implements ActionListener{
 
 	JButton calculateG;
 
-	public FrameAndElements(){
+	public FrameAndElements(){              //Constructor
 		
-		frame = new JFrame("Milestone Calculator");
+		frame = new JFrame("Milestone Calculator"); //frame name and size
 		frame.setSize(700, 300);
 		
-		ms1 = new JLabel("Milestone 1");
+		ms1 = new JLabel("Milestone 1");        //column 1
 		ms2 = new JLabel("Milestone 2");
 		ta = new JLabel("Terminal Assesment");
 		ms1.setBounds(50, 25, 100, 30);
@@ -47,7 +47,7 @@ public class FrameAndElements implements ActionListener{
 		frame.add(ms2);
 		frame.add(ta);
 
-		ms1in = new JTextField();
+		ms1in = new JTextField();            //collumn 2
 		ms2in = new JTextField();
 		taIn = new JTextField();
 		ms1in.setBounds(190, 25, 90, 30);
@@ -57,7 +57,7 @@ public class FrameAndElements implements ActionListener{
 		frame.add(ms2in);
 		frame.add(taIn);
 
-		ms1max = new JLabel("%  25 (max points)");
+		ms1max = new JLabel("%  25 (max points)");  //collumn 3
 		ms2max = new JLabel("%  40 (max points)");
 		taMax = new JLabel("%  35 (max points)");
 		total = new JLabel("TOTAL");
@@ -70,7 +70,7 @@ public class FrameAndElements implements ActionListener{
 		frame.add(taMax);
 		frame.add(total);
 
-		ms1total = new JLabel();
+		ms1total = new JLabel();                   //collumn 4, displays after pressing calculate.
 		ms2total = new JLabel();
 		taTotal = new JLabel();
 		overAllGrade = new JLabel();
@@ -83,26 +83,42 @@ public class FrameAndElements implements ActionListener{
 		frame.add(taTotal);
 		frame.add(overAllGrade);
 		
-		calculateG = new JButton("Calculate");
+		calculateG = new JButton("Calculate");        //button with actionListener
 		calculateG.setBounds(190, 175, 90, 30);
 		frame.add(calculateG);
 		calculateG.addActionListener(this);
 
 		frame.setLayout(null);
 		frame.setVisible(true);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 	}
 
-	public void actionPerformed(ActionEvent e){
+	public void actionPerformed(ActionEvent e){             //actionListener Method
 
-		int a = Integer.parseInt(ms1in.getText());
-		int b = Integer.parseInt(ms2in.getText());
+		int a = Integer.parseInt(ms1in.getText());      //performs calculations
+		int b = Integer.parseInt(ms2in.getText());      //promtps incorrect value, and equates to zero
 		int c = Integer.parseInt(taIn.getText());
 
-		ms1total.setText((a*25)/100+"%");
-		ms2total.setText((b*40)/100+"%");
-		taTotal.setText((c*35)/100+"%");
+		if(a<0||a>100){
+			ms1total.setText("Incorrect Value!");
+			a = 0;
+		}else{
+			ms1total.setText((a*25)/100+"%");
+		}
+		if(b<0||b>100){
+			ms2total.setText("Incorrect Value!");
+			b = 0;
+		}else{
+			ms2total.setText((b*40)/100+"%");
+		}
+		if(c<0||c>100){
+			taTotal.setText("Incorrect Value!");
+			c = 0;
+		}else{
+			taTotal.setText((c*35)/100+"%");
+		}
 		overAllGrade.setText(((a*25)/100)+((b*40)/100)+((c*35)/100)+"%");
+
 	}
  
 }

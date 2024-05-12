@@ -8,6 +8,6 @@ package com.mycompany.labwork3;
 public class LabWork3 {
 
     public static void main(String arg[]){
-	new FrameAndElements();
+	new FrameAndElements();             //calling the FrameAndElements class
     }
 }
