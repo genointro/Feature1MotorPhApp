@@ -7,7 +7,7 @@ import java.awt.event.*;
 
 public class EmployeeInfo{
 	
-	JFrame myFrame;
+	JFrame myFrame;               //attributes
 
 	JButton attendanceButton;
 	JButton salaryButton;
@@ -20,13 +20,13 @@ public class EmployeeInfo{
 	JLabel name;
 	JLabel bday;
 
-	public EmployeeInfo(){
+	public EmployeeInfo(){                    //constructor, contains;
 		
-		myFrame = new JFrame("Employee Information");
+		myFrame = new JFrame("Employee Information");   //frame specs
 		myFrame.setSize(600, 300);
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
-		idNumber = new JLabel("ID Number:");
+		idNumber = new JLabel("ID Number:");            //Labels displaying employee info
 		idNumber.setBounds(50, 25, 100, 30);
 		employeeName = new JLabel("Employee Name:");
 		employeeName.setBounds(50, 75, 130, 30);
@@ -40,9 +40,9 @@ public class EmployeeInfo{
 		bday = new JLabel("MM/DD/YYYY");
 		bday.setBounds(300, 125, 90, 30);
 		
-		attendanceButton = new JButton("Attendance");
+		attendanceButton = new JButton("Attendance");     //button that opens update attendance frame
 		attendanceButton.setBounds(50, 180, 140, 40);
-		salaryButton = new JButton("Salary Info");
+		salaryButton = new JButton("Salary Info");        //button that opens salary calculation page
 		salaryButton.setBounds(300, 180, 140, 40);
 		attendanceButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -50,7 +50,7 @@ public class EmployeeInfo{
 				myFrame.dispose();
 			}
 		}); 
-		salaryButton.addActionListener(new ActionListener(){
+		salaryButton.addActionListener(new ActionListener(){   
 			public void actionPerformed(ActionEvent e){
 				new NetWage();
 				myFrame.dispose();

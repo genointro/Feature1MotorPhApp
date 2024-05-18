@@ -5,13 +5,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;	
 
-public class WarningFrame{
+public class WarningFrame{             //class for Number Exception warning window
 
-	JFrame warningFrame;
+	JFrame warningFrame;            //attributes
 	JLabel warningMessage;
 	JButton ok;
 
-	public WarningFrame(){
+	public WarningFrame(){          //constructor
 
 		warningFrame = new JFrame("Important Message");
 		warningFrame.setSize(300, 200);

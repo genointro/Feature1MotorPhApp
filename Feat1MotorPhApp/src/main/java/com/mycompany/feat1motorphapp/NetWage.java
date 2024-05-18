@@ -8,7 +8,7 @@ import java.awt.Window.*;
 
 public class NetWage{
 	
-	JFrame myFrame;
+	JFrame myFrame;                    //attributes
 
 	JLabel idNumber;
 	JLabel employeeName;
@@ -30,13 +30,13 @@ public class NetWage{
 	JLabel grossWk, sss, philHealth, pagIbig, total, taxIncome, withTax, netWk;
 	JLabel outGrossWk, outSss, outPhilHealth, outPagIbig, outTotal, outTaxIncome, outWithTax, outNetWk;
 
-	public NetWage(){
+	public NetWage(){                                     //constructor
 		
-		myFrame = new JFrame("Payslip Information");
+		myFrame = new JFrame("Payslip Information");      //frame specs
 		myFrame.setSize(600, 700);
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
-		idNumber = new JLabel("ID Number:");
+		idNumber = new JLabel("ID Number:");          //labels that show employee info
 		idNumber.setBounds(50, 25, 100, 30);
 		employeeName = new JLabel("Employee Name:");
 		employeeName.setBounds(50, 75, 130, 30);
@@ -56,10 +56,10 @@ public class NetWage{
 		myFrame.add(name);
 		myFrame.add(bday);
 
-		totalWkHrs = new JLabel("Please Update Total Hours this Week!");
-		totalWkHrs.setBounds(50, 175, 250, 30);
+		totalWkHrs = new JLabel("Please Update Total Hours this Week!");  //label to receive and display 
+		totalWkHrs.setBounds(50, 175, 250, 30);                           //total hours for the week information
 		myFrame.add(totalWkHrs);
-		attendanceButton = new JButton("Update Attendance");
+		attendanceButton = new JButton("Update Attendance");            //button to open update attendance page
 		attendanceButton.setBounds(300, 177, 145, 25);
 		attendanceButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){				
@@ -70,13 +70,13 @@ public class NetWage{
 		});
 		myFrame.add(attendanceButton);
 
-		prHrIn = new JLabel("Enter Per Hour Rate:");
+		prHrIn = new JLabel("Enter Per Hour Rate:");           
 		prHrIn.setBounds(50, 205, 115, 25);
 		myFrame.add(prHrIn);
-		prHrInput = new JTextField();
+		prHrInput = new JTextField();                          //textField to enter per hour information
 		prHrInput.setBounds(180, 205, 50, 25);
 		myFrame.add(prHrInput);
-		prHrButton = new JButton("Calculate");
+		prHrButton = new JButton("Calculate");                //button to run all calculations
 		prHrButton.setBounds(300, 205, 100, 25);
 		prHrButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -97,7 +97,7 @@ public class NetWage{
 		});	
 		myFrame.add(prHrButton);
 
-		headPaySlip = new JLabel("PAYSLIP INFORMATION");
+		headPaySlip = new JLabel("PAYSLIP INFORMATION");       //labels showing the entire payslip info
 		headPaySlip.setBounds(50, 300, 140, 30);
 		grossWk = new JLabel("Gross Week Salary");
 		grossWk.setBounds(50, 325, 130, 30);
@@ -155,7 +155,7 @@ public class NetWage{
 		myFrame.setVisible(true); 
 	}
 
-	public String getGross(){
+	public String getGross(){                                 //method for gross week Salary calculation
 		int a = Integer.parseInt(totalWkHrs.getText());
 		int b = Integer.parseInt(prHrInput.getText());
 		double c = a*b;
@@ -163,7 +163,7 @@ public class NetWage{
 		return displayGross;	
 	}
 
-	public String getSss(){
+	public String getSss(){                                 //method for sss calculation
 		double gross = Double.parseDouble(getGross());
 		int i = 1;
 		int startRange = 3250;
@@ -189,7 +189,7 @@ public class NetWage{
 		return displaySss;
 	}	
 
-	public String getPhilHealth(){
+	public String getPhilHealth(){                         //method for philHealth calculation
 		double gross = Double.parseDouble(getGross());
 		double philHealth = 300;
 		if(gross>=10000&&gross<60000){
@@ -204,7 +204,7 @@ public class NetWage{
 		return displayPhilHealth;	
 	}
 	
-	public String getPagIbig(){
+	public String getPagIbig(){                               //method for pagIbig calculation
 		double gross = Double.parseDouble(getGross());
 		double pagIbig = 0;
 		
@@ -219,7 +219,7 @@ public class NetWage{
 		return displayPagIbig;
 	}
 
-	public String getTotalDeduct(){
+	public String getTotalDeduct(){                                    //totals all deductions
 		double sss = Double.parseDouble(getSss());
 		double philHealth = Double.parseDouble(getPhilHealth());
 		double pagIbig = Double.parseDouble(getPagIbig());
@@ -228,7 +228,7 @@ public class NetWage{
 		return displayTotal;
 	}	
 
-	public String getTaxIncome(){
+	public String getTaxIncome(){                                            //method for calculating taxable Income
 		double sss = Double.parseDouble(getSss());
 		double gross = Double.parseDouble(getGross());
 		double taxIncome = gross-(Double.parseDouble(getTotalDeduct()));
@@ -250,7 +250,7 @@ public class NetWage{
 		return displayTaxIncome;
 	}
 
-	public String getWithTax(){
+	public String getWithTax(){                                               //method for calculating withHolding tax
 		double sss = Double.parseDouble(getSss());
 		double gross = Double.parseDouble(getGross());
 		double taxIncome = gross-(Double.parseDouble(getTotalDeduct()));
@@ -272,7 +272,7 @@ public class NetWage{
 		return displayWithHoldTax;
 	}
 
-	public String getNetWk(){
+	public String getNetWk(){                                                                 //method calculates net salary for the Week
 		double net = Double.parseDouble(getTaxIncome())-Double.parseDouble(getWithTax());
 		String displayNet = String.valueOf(net);
 		return displayNet;

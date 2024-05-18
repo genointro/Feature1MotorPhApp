@@ -7,7 +7,7 @@ import java.awt.event.*;
 
 public class WeekHours{
 	
-	JFrame myFrame;
+	JFrame myFrame;                    //attributes
 
 	JLabel idNumber, employeeName, birthDay, idNum, name, bday;
 	
@@ -29,13 +29,13 @@ public class WeekHours{
 	JButton updateButton;
 	JButton salaryButton; 
 
-	public WeekHours(){
+	public WeekHours(){       //contructor
 		
-		myFrame = new JFrame("Attendance Information");
+		myFrame = new JFrame("Attendance Information");  //frame specs
 		myFrame.setSize(600, 550);
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
-		idNumber = new JLabel("ID Number:");
+		idNumber = new JLabel("ID Number:");         //labels showing employee info
 		idNumber.setBounds(50, 25, 100, 30);
 		employeeName = new JLabel("Employee Name:");
 		employeeName.setBounds(50, 75, 130, 30);
@@ -55,7 +55,7 @@ public class WeekHours{
 		myFrame.add(name);
 		myFrame.add(bday);
 
-		headDate = new JLabel("DATE");
+		headDate = new JLabel("DATE");               //row of headers
 		headDate.setBounds(110, 175, 35, 30);
 		headTimeInHr = new JLabel("TIME IN(hh)");
 		headTimeInHr.setBounds(160, 175, 65, 30);
@@ -71,7 +71,7 @@ public class WeekHours{
 		myFrame.add(headTimeOutHr);
 		myFrame.add(headTotalHrs);
 
-		day1 = new JLabel("Day 1");
+		day1 = new JLabel("Day 1");         //column indicating day#
 		day1.setBounds(50, 200, 35, 30);
 		day2 = new JLabel("Day 2");
 		day2.setBounds(50, 225, 35, 30);
@@ -88,7 +88,7 @@ public class WeekHours{
 		myFrame.add(day4);
 		myFrame.add(day5);	
 
-		date1 = new JTextField();
+		date1 = new JTextField();            //column of textFields for date input
 		date1.setBounds(90, 205, 70, 20);
 		date2 = new JTextField();
 		date2.setBounds(90, 230, 70, 20);
@@ -105,7 +105,7 @@ public class WeekHours{
 		myFrame.add(date4);
 		myFrame.add(date5);
 
-		hIn1 = new JTextField();
+		hIn1 = new JTextField();             //columns of textFields for Time In and Time Out Input
 		hIn1.setBounds(205, 205, 20, 20);
 		minIn1 = new JTextField();
 		minIn1.setBounds(225, 205, 20, 20);
@@ -151,7 +151,7 @@ public class WeekHours{
 		myFrame.add(minIn5);
 		myFrame.add(hOut5);
 
-		hrs1 = new JLabel();
+		hrs1 = new JLabel();                   //column of labels that will output total hours for a particular day#
 		hrs1.setBounds(380, 205, 20, 20);
 		hrs2 = new JLabel();
 		hrs2.setBounds(380, 230, 20, 20);
@@ -170,7 +170,7 @@ public class WeekHours{
 		myFrame.add(hrs5);
 		myFrame.add(totalHrs);
 
-		updateButton = new JButton("Update");
+		updateButton = new JButton("Update");        //update button that totals hours for each Day and the entire Week
 		updateButton.setBounds(300, 330, 75, 25);
 		updateButton.addActionListener(new ActionListener(){
 		
@@ -185,8 +185,8 @@ public class WeekHours{
 		});
 
 		
-		salaryButton = new JButton("View Pay Slip");
-		salaryButton.setBounds(300, 360, 145, 25);
+		salaryButton = new JButton("View Pay Slip");          //button for viewing payslip info, and sending
+		salaryButton.setBounds(300, 360, 145, 25);            //data of total hours for the week in payslip info page
 		salaryButton.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e){
@@ -209,7 +209,7 @@ public class WeekHours{
 		myFrame.setVisible(true); 
 	}
 
-	public String totalHours(){
+	public String totalHours(){                           //method to calculate all total hours for each day and for the entire week
 	
 		int h1 = Integer.parseInt(hIn1.getText());
 		int m1 = Integer.parseInt(minIn1.getText());
