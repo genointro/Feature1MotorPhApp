@@ -3,27 +3,96 @@ package com.mycompany.feat1motorphapp;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.FlatteningPathIterator;
 import javax.swing.*;
 import javax.swing.event.*;
+import java.sql.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class AllEmployees{
 	
-	JFrame frame;        //attributes
+	JFrame frame;
 	JPanel panel;
+	JPanel panel2;
 	JTable table;
 	JScrollPane sp;
-	JButton button;	 
+	JButton button;
+	JButton addButton;
+	JButton delButton;	 
 
-	public AllEmployees(){   //constructor
+	public AllEmployees(){
 
 		frame = new JFrame("All Employees");
-		frame.setSize(900,300);
+		frame.setSize(1000,520);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			
-		panel = new JPanel(new BorderLayout());
+                
+                Object[][] rows = {
+			{"", "", "", "", "", "", "", "", ""},
+			{"", "", "", "", "", "", "", "", ""},
+			{"", "", "", "", "", "", "", "", ""},
+			{"", "", "", "", "", "", "", "", ""},
+			{"", "", "", "", "", "", "", "", ""}
+		};		
+		String[] columnNames = {"Employee Number", "Last Name", "First Name", "Birth Day", "SSS No.", "Phil Health No.", "TIN No.", "PagIbig No.", "Basic Salary"};
+		table = new JTable(rows, columnNames);
+                
 
-		button = new JButton("View Selected Employee"); //button to add array of info
-		panel.add(button);                              //and send to NetWage Class JLabels
+		sp = new JScrollPane(table);
+		frame.add(sp, BorderLayout.NORTH);
+
+		panel2 = new JPanel();
+		addButton = new JButton("Update");  //make new window to add new data to the table
+                addButton.addActionListener(new ActionListener(){
+                    
+                        public void actionPerformed(ActionEvent ae){  //make something happen with update button and SQL!!
+                                
+                                DefaultTableModel tableModel = new DefaultTableModel();
+                                
+                                try{
+                                        Class.forName("com.mysql.cj.jdbc.Driver");
+                                        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/motorhphdb?zeroDateTimeBehavior=CONVERT_TO_NULL", "root", "admin");
+                                        System.out.println("connection solved!!");
+                                        Statement statement = connection.createStatement(); 
+                                        String query = "SELECT * FROM allemployees";
+                                        ResultSet resultSet = statement.executeQuery(query);
+                                        
+                                        
+                                        
+                                        while(resultSet.next()){
+                                                String employeeNumber = resultSet.getString("EmployeeNumber");
+                                                String lastName = resultSet.getString("LastName");
+                                                String firstName = resultSet.getString("FirstName");
+                                                String birthDay = resultSet.getString("BirthDay");
+                                                String sssNo = resultSet.getString("SSSNo");
+                                                String philHealthNo = resultSet.getString("PhilHealthNo");
+                                                String tinNo = resultSet.getString("TINNo");
+                                                String pagIbigNo = resultSet.getString("PagIbigNo");
+                                                String basicSalary = resultSet.getString("BasicSalary");
+                                                
+                                                String column[] = {employeeNumber, lastName, firstName, birthDay, sssNo, philHealthNo, tinNo, pagIbigNo, basicSalary};
+                                                
+                                                tableModel.addRow(column);
+                                        }  
+                                        connection.close();
+                               
+                                }catch(Exception e){
+                                        e.printStackTrace(System.err);
+                                }
+                                table.setModel(tableModel);
+                             
+                        }
+                   
+                });                          
+
+		delButton = new JButton("Delete");  //delete selected row
+		panel2.add(addButton);
+		panel2.add(delButton);
+		frame.add(panel2, BorderLayout.CENTER);
+	
+		panel = new JPanel(new BorderLayout());
+		button = new JButton("View Selected Employee");
+		panel.add(button);
 		frame.add(panel, BorderLayout.SOUTH);
 		button.addActionListener(new ActionListener(){
 
@@ -72,20 +141,7 @@ public class AllEmployees{
 
 				frame.dispose();		
 			}
-		});  
-
-		Object[][] rows = {
-			{"Employee#1", "LastName1", "First Name1", "BirthDay1", "SSS No.1", "PhilHealth No.1", "TIN No.1", "PagIbig No.1", "500000.0"},
-			{"Employee#2", "LastName2", "First Name2", "BirthDay2", "SSS No.2", "PhilHealth No.2", "TIN No.2", "PagIbig No.2", "500000.0"},
-			{"Employee#3", "LastName3", "First Name3", "BirthDay3", "SSS No.3", "PhilHealth No.3", "TIN No.3", "PagIbig No.3", "500000.0"},
-			{"Employee#4", "LastName4", "First Name4", "BirthDay4", "SSS No.4", "PhilHealth No.4", "TIN No.4", "PagIbig No.4", "500000.0"},
-			{"Employee#5", "LastName5", "First Name5", "BirthDay5", "SSS No.5", "PhilHealth No.5", "TIN No.5", "PagIbig No.5", "500000.0"}
-		};		
-		String[] columnNames = {"Employee Number", "Last Name", "First Name", "Birth Day", "SSS No.", "Phil Health No.", "TIN No.", "PagIbig No.", "Basic Salary"};
-		table = new JTable(rows, columnNames);
-
-		sp = new JScrollPane(table);
-		frame.add(sp, BorderLayout.NORTH); 
+		});   
 				
 		frame.setVisible(true); 
 	}
