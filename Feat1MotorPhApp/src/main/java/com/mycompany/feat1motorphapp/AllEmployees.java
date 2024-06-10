@@ -27,27 +27,22 @@ public class AllEmployees{
 		frame.setSize(1000,520);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 
-                Object[][] rows = {
-			{"", "", "", "", "", "", "", "", ""},
-			{"", "", "", "", "", "", "", "", ""},
-			{"", "", "", "", "", "", "", "", ""},
-			{"", "", "", "", "", "", "", "", ""},
-			{"", "", "", "", "", "", "", "", ""}
-		};		
-		String[] columnNames = {"Employee Number", "Last Name", "First Name", "Birth Day", "SSS No.", "Phil Health No.", "TIN No.", "PagIbig No.", "Basic Salary"};
-		table = new JTable(rows, columnNames);
-                
-
-		sp = new JScrollPane(table);
-		frame.add(sp, BorderLayout.NORTH);
-
+                table = new JTable();                   //table on stand by
+                table.setModel(new DefaultTableModel(
+                        new Object[][]{},
+                        new String[]{"employeeNumber", "lastName", "firstName", "birthDay", "sssNo", "philHealthNo", "tinNo", "pagIbigNo", "basicSalary"}
+                        ));
+                sp = new JScrollPane(table);
+                frame.add(sp, BorderLayout.NORTH);
+             
 		panel2 = new JPanel();
-		addButton = new JButton("Update");  //make new window to add new data to the table
+		addButton = new JButton("Update");  //updates the table with current data base info
                 addButton.addActionListener(new ActionListener(){
                     
-                        public void actionPerformed(ActionEvent ae){  //make something happen with update button and SQL!!
+                        public void actionPerformed(ActionEvent ae){ 
                                 
-                                DefaultTableModel tableModel = new DefaultTableModel();
+                                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+                                
                                 
                                 try{
                                         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -79,8 +74,8 @@ public class AllEmployees{
                                 }catch(Exception e){
                                         e.printStackTrace(System.err);
                                 }
-                                table.setModel(tableModel);
-                             
+                                
+                                
                         }
                    
                 });                          
@@ -91,7 +86,7 @@ public class AllEmployees{
 		frame.add(panel2, BorderLayout.CENTER);
 	
 		panel = new JPanel(new BorderLayout());
-		button = new JButton("View Selected Employee");
+		button = new JButton("View Selected Employee");     //opens the salary info page and sends information of selected row
 		panel.add(button);
 		frame.add(panel, BorderLayout.SOUTH);
 		button.addActionListener(new ActionListener(){
