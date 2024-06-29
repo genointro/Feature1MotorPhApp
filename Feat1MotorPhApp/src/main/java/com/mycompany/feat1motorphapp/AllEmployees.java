@@ -42,6 +42,7 @@ public class AllEmployees{
                         public void actionPerformed(ActionEvent ae){ 
                                 
                                 DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+                                tableModel.setRowCount(0);
                                 
                                 
                                 try{
@@ -81,9 +82,35 @@ public class AllEmployees{
                 });                          
 
 		delButton = new JButton("Delete");  //delete selected row
-		panel2.add(addButton);
+                panel2.add(addButton);
 		panel2.add(delButton);
 		frame.add(panel2, BorderLayout.CENTER);
+                delButton.addActionListener(new ActionListener(){
+                    
+                        public void actionPerformed(ActionEvent ae){
+                            
+                                    int index[] = table.getSelectedRows();
+                                    Object[] column = new Object[9];
+                                   
+                                    column[0] = table.getValueAt(index[0], 0);
+                                    String selectedRow = String.valueOf(column[0]);
+                                    System.out.println(selectedRow);
+                                    
+                                    try{
+                                            
+                                            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/motorhphdb?zeroDateTimeBehavior=CONVERT_TO_NULL", "root", "admin");
+                                            System.out.println("Database Connected");
+                                            String query = "DELETE FROM motorhphdb.allemployees WHERE `EmployeeNumber` = '"+selectedRow+"'";
+                                            PreparedStatement preparedStatement = connection.prepareStatement(query);
+                                            preparedStatement.execute();
+                                            
+                                    }catch(Exception e){
+                                            e.printStackTrace(System.err);
+                                    }
+                            
+                        }
+                    
+                });
 	
 		panel = new JPanel(new BorderLayout());
 		button = new JButton("View Selected Employee");     //opens the salary info page and sends information of selected row
