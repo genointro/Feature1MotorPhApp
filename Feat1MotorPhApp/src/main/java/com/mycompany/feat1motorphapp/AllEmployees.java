@@ -36,8 +36,8 @@ public class AllEmployees{
                 frame.add(sp, BorderLayout.NORTH);
              
 		panel2 = new JPanel();
-		addButton = new JButton("Update");  //updates the table with current data base info
-                addButton.addActionListener(new ActionListener(){
+		button = new JButton("Update");  //updates the table with current data base info
+                button.addActionListener(new ActionListener(){
                     
                         public void actionPerformed(ActionEvent ae){ 
                                 
@@ -81,10 +81,13 @@ public class AllEmployees{
                    
                 });                          
 
-		delButton = new JButton("Delete");  //delete selected row
+		delButton = new JButton("Delete");                                   //delete selected row
+                addButton = new JButton("ADD Employee Info");
                 panel2.add(addButton);
 		panel2.add(delButton);
+                panel2.add(button);
 		frame.add(panel2, BorderLayout.CENTER);
+                
                 delButton.addActionListener(new ActionListener(){
                     
                         public void actionPerformed(ActionEvent ae){
@@ -111,10 +114,18 @@ public class AllEmployees{
                         }
                     
                 });
+                
+                addButton.addActionListener(new ActionListener(){
+                    
+                        public void actionPerformed(ActionEvent ae){
+                            
+                                new AddEmployee();
+                        }
+                });
 	
 		panel = new JPanel(new BorderLayout());
 		button = new JButton("View Selected Employee");     //opens the salary info page and sends information of selected row
-		panel.add(button);
+                panel.add(button);        
 		frame.add(panel, BorderLayout.SOUTH);
 		button.addActionListener(new ActionListener(){
 
